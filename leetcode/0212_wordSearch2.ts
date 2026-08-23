@@ -44,9 +44,9 @@ function findWords(board: string[][], words: string[]): string[] {
   }
 
   const currWord: string[] = [];
-  const foundWords = new Set<string>();
+  const foundWords: string[] = [];
   const search = (i: number, j: number, currNode: Trie, len: number): void => {
-    if (visited[i][j] || len > 10) {
+    if (visited[i][j] || len > maxWordLen) {
       return;
     }
 
@@ -61,7 +61,8 @@ function findWords(board: string[][], words: string[]): string[] {
     visited[i][j] = true;
 
     if (nextNode.terminates) {
-      foundWords.add(currWord.join(''));
+      foundWords.push(currWord.join(''));
+      nextNode.terminates = false;
     }
 
     // i+1, j
